@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +34,7 @@ import static javax.servlet.DispatcherType.REQUEST;
 @RequiredArgsConstructor
 public class StripesConfig
 {
-	private static final String URL_PATTERN = "*.action";
+	private static final List<String> URL_PATTERNS = Arrays.asList("*.action", "*.jsp");
 
 	private final StripesProperties properties;
 
@@ -41,9 +42,7 @@ public class StripesConfig
 	@Bean("urlPatternsForStripesFilter")
 	public List<String> urlPatternsForStripesFilter()
 	{
-		final List<String> urlPatterns = new ArrayList<>();
-		urlPatterns.add(URL_PATTERN);
-		return urlPatterns;
+		return URL_PATTERNS;
 	}
 
 

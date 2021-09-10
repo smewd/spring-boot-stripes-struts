@@ -10,40 +10,17 @@
 
     <groupId>com.smood</groupId>
     <artifactId>spring-boot-stripes</artifactId>
-    <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
-
-        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
-        <lombok.version>1.18.4</lombok.version>
-        <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
-        <stripes.version>1.5.8</stripes.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
 
         <dependency>
             <groupId>net.sourceforge.stripes</groupId>
@@ -73,6 +50,35 @@
             <version>${lombok.version}</version>
         </dependency>
     </dependencies>
+    <packaging>war</packaging>
+
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
+
+        <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <lombok.version>1.18.4</lombok.version>
+        <spring-boot.version>1.5.22.RELEASE</spring-boot.version>
+        <stripes.version>1.7.0-beta4</stripes.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <resources>
@@ -84,29 +90,29 @@
 
         <pluginManagement>
             <plugins>
-<!--                <plugin>-->
-<!--                    <artifactId>maven-jar-plugin</artifactId>-->
-<!--                    <executions>-->
-<!--                        <execution>-->
-<!--                            &lt;!&ndash; Since Spring Boot needs that the web resources must be inside a jar to be able to serve them on a fat jar, we &ndash;&gt;-->
-<!--                            &lt;!&ndash; move them inside a new jar that will be picked up by the spring boot maven plugin repackage. The alternative  &ndash;&gt;-->
-<!--                            &lt;!&ndash; is to move the web resources to another maven module. As this is a sample, we stay on the easy side.          &ndash;&gt;-->
-<!--                            <id>create-web-resources-archive</id>-->
-<!--                            <phase>prepare-package</phase>-->
-<!--                            <goals>-->
-<!--                                <goal>jar</goal>-->
-<!--                            </goals>-->
-<!--                            <configuration>-->
-<!--                                <classifier>web-resources</classifier>-->
-<!--                                <classesDirectory>${project.basedir}/src/main/resources/</classesDirectory>-->
-<!--                                <includes>-->
-<!--                                    <include>META-INF/resources/**/*</include>-->
-<!--                                </includes>-->
-<!--                                <outputDirectory>${project.build.directory}/classes/BOOT-INF/lib</outputDirectory>-->
-<!--                            </configuration>-->
-<!--                        </execution>-->
-<!--                    </executions>-->
-<!--                </plugin>-->
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <!-- Since Spring Boot needs that the web resources must be inside a jar to be able to serve them on a fat jar, we -->
+                            <!-- move them inside a new jar that will be picked up by the spring boot maven plugin repackage. The alternative  -->
+                            <!-- is to move the web resources to another maven module. As this is a sample, we stay on the easy side.          -->
+                            <id>create-web-resources-archive</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                            <configuration>
+                                <classifier>web-resources</classifier>
+                                <classesDirectory>${project.basedir}/src/main/resources/</classesDirectory>
+                                <includes>
+                                    <include>META-INF/resources/**/*</include>
+                                </includes>
+                                <outputDirectory>${project.build.directory}/classes/BOOT-INF/lib</outputDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>

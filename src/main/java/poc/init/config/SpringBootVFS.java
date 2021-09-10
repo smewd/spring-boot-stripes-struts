@@ -45,8 +45,9 @@ public class SpringBootVFS extends DefaultVFS
 		{
 			return null;
 		}
+
 		final URL jar = ResourceUtils.extractJarFileURL(url);
-		return (isJar(jar)) ? jar : null;
+		return isJar(jar) ? jar : null;
 	}
 
 
@@ -58,7 +59,8 @@ public class SpringBootVFS extends DefaultVFS
 	@Override
 	protected boolean isJar(final URL url)
 	{
-		return url.getPath().toLowerCase().endsWith(ResourceUtils.JAR_FILE_EXTENSION) || url.getPath().toLowerCase().endsWith(".war");
+		return url.getPath().toLowerCase().endsWith(ResourceUtils.JAR_FILE_EXTENSION)
+				|| url.getPath().toLowerCase().endsWith(".war");
 	}
 
 
@@ -77,11 +79,12 @@ public class SpringBootVFS extends DefaultVFS
 	protected List<String> listResources(final JarInputStream jar, final String path) throws IOException
 	{
 		final Resource[] resources = resourceResolver.getResources(ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + path + "/**/*.class");
-		final List<String> resourcePaths = new ArrayList<String>();
+		final List<String> resourcePaths = new ArrayList<>();
 		for (final Resource resource : resources)
 		{
 			resourcePaths.add(preserveSubpackageName(resource.getURI(), path));
 		}
+
 		return resourcePaths;
 	}
 
