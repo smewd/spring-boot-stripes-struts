@@ -75,8 +75,38 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <pluginManagement>
             <plugins>
+<!--                <plugin>-->
+<!--                    <artifactId>maven-jar-plugin</artifactId>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            &lt;!&ndash; Since Spring Boot needs that the web resources must be inside a jar to be able to serve them on a fat jar, we &ndash;&gt;-->
+<!--                            &lt;!&ndash; move them inside a new jar that will be picked up by the spring boot maven plugin repackage. The alternative  &ndash;&gt;-->
+<!--                            &lt;!&ndash; is to move the web resources to another maven module. As this is a sample, we stay on the easy side.          &ndash;&gt;-->
+<!--                            <id>create-web-resources-archive</id>-->
+<!--                            <phase>prepare-package</phase>-->
+<!--                            <goals>-->
+<!--                                <goal>jar</goal>-->
+<!--                            </goals>-->
+<!--                            <configuration>-->
+<!--                                <classifier>web-resources</classifier>-->
+<!--                                <classesDirectory>${project.basedir}/src/main/resources/</classesDirectory>-->
+<!--                                <includes>-->
+<!--                                    <include>META-INF/resources/**/*</include>-->
+<!--                                </includes>-->
+<!--                                <outputDirectory>${project.build.directory}/classes/BOOT-INF/lib</outputDirectory>-->
+<!--                            </configuration>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                </plugin>-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
@@ -86,6 +116,19 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot.version}</version>
+                    <configuration>
+                        <jvmArguments>
+                            -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000
+                        </jvmArguments>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>build-info</goal>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>

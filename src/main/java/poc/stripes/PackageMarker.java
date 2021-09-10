@@ -1,4 +1,4 @@
-package everything.stripes;
+package poc.stripes;
 
 
 

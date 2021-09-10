@@ -1,7 +1,7 @@
-package everything.webmvc.controllers;
+package poc.webmvc.controllers;
 
 
-import everything.beans.DummyService;
+import poc.beans.DummyService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,18 +13,18 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/webmvc")
-public class HelloWorldController
+public class DummyController
 {
 	private final DummyService service;
 
 
-	public HelloWorldController(DummyService service)
+	public DummyController(DummyService service)
 	{
 		this.service = service;
 	}
 
 
-	@GetMapping(value = "/helloworld", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/dummy", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Map<String, String> helloworld()
 	{
 		Map<String, String> map = new HashMap<>();

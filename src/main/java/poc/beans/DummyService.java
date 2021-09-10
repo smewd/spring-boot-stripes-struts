@@ -1,4 +1,4 @@
-package everything.beans;
+package poc.beans;
 
 
 import org.springframework.stereotype.Service;

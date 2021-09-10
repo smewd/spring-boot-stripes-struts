@@ -1,7 +1,7 @@
-package everything.stripes;
+package poc.stripes;
 
 
-import everything.beans.DummyService;
+import poc.beans.DummyService;
 import lombok.Getter;
 import lombok.Setter;
 import net.sourceforge.stripes.action.ActionBean;
@@ -28,7 +28,7 @@ public class DummyActionBean implements ActionBean
 	public Resolution defaultHandler()
 	{
 		System.out.println("DummyActionBean.defaultHandler");
-		return new ForwardResolution("/WEB-INF/stripes/dummy.jsp");
+		return new ForwardResolution("/WEB-INF/jsp/dummy.jsp");
 	}
 
 
