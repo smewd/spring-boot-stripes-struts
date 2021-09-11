@@ -13,8 +13,8 @@ import org.springframework.core.Ordered;
 import java.util.Collections;
 import java.util.List;
 
-import static javax.servlet.DispatcherType.*;
 import static javax.servlet.DispatcherType.ERROR;
+import static javax.servlet.DispatcherType.FORWARD;
 import static javax.servlet.DispatcherType.INCLUDE;
 import static javax.servlet.DispatcherType.REQUEST;
 
