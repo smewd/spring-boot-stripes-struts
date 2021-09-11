@@ -27,7 +27,6 @@ public class DummyActionBean implements ActionBean
 	@DefaultHandler
 	public Resolution defaultHandler()
 	{
-		System.out.println("DummyActionBean.defaultHandler");
 		return new ForwardResolution("/WEB-INF/jsp/dummy.jsp");
 	}
 

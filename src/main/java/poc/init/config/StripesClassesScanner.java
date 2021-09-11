@@ -1,6 +1,7 @@
 package poc.init.config;
 
 
+import net.sourceforge.stripes.action.ActionBean;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -8,6 +9,8 @@ import org.springframework.context.annotation.ScannedGenericBeanDefinition;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.type.classreading.MetadataReader;
+import org.springframework.core.type.filter.AssignableTypeFilter;
+import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
@@ -24,16 +27,27 @@ import java.util.Set;
 
 public class StripesClassesScanner<T> extends ClassPathScanningCandidateComponentProvider
 {
-
-	StripesClassesScanner()
+	private StripesClassesScanner()
 	{
 		super(false);
 	}
 
 
+	static String scanForActionBeans() {
+		final StripesClassesScanner<ActionBean> scanner = new StripesClassesScanner<>();
+		scanner.addIncludeFilter(new AssignableTypeFilter(ActionBean.class));
+		final Collection<Class<? extends ActionBean>> actionbeans = scanner.findComponentClasses("");
+		final String packages = scanner.toPackagesWithoutStripesClasses(actionbeans);
+		Assert.state(!StringUtils.isEmpty(packages),
+				"Didn't find classes implementing ActionBean, check your application build and/or your " +
+						"stripes.action-resolver-packages property on application.properties");
+
+		return packages;
+	}
+
 	public Collection<Class<? extends T>> findComponentClasses(final String basePackage)
 	{
-		final List<Class<? extends T>> classes = new ArrayList<Class<? extends T>>();
+		final List<Class<? extends T>> classes = new ArrayList<>();
 		for (final BeanDefinition candidate : findCandidateComponents((basePackage == null) ? "" : basePackage))
 		{
 			try
@@ -100,10 +114,10 @@ public class StripesClassesScanner<T> extends ClassPathScanningCandidateComponen
 
 	String toPackagesWithoutStripesClasses(final Collection<Class<? extends T>> classes)
 	{
-		final Set<String> packages = new HashSet<String>();
+		final Set<String> packages = new HashSet<>();
 		for (final Class<? extends T> clase : classes)
 		{
-			if (!fromStripesLibrary(clase))
+			if (notFromStripesLibrary(clase))
 			{
 				packages.add(clase.getPackage().getName());
 			}
@@ -117,7 +131,7 @@ public class StripesClassesScanner<T> extends ClassPathScanningCandidateComponen
 	{
 		for (final Class<? extends T> clase : classes)
 		{
-			if (!fromStripesLibrary(clase) && !Modifier.isAbstract(clase.getModifiers()) && !clase.isInterface())
+			if (notFromStripesLibrary(clase) && !Modifier.isAbstract(clase.getModifiers()) && !clase.isInterface())
 			{
 				return clase.getName();
 			}
@@ -128,7 +142,7 @@ public class StripesClassesScanner<T> extends ClassPathScanningCandidateComponen
 
 	String toPackages(final Collection<Class<? extends T>> classes)
 	{
-		final Set<String> packages = new HashSet<String>();
+		final Set<String> packages = new HashSet<>();
 		for (final Class<? extends T> clase : classes)
 		{
 			packages.add(clase.getPackage().getName());
@@ -138,9 +152,9 @@ public class StripesClassesScanner<T> extends ClassPathScanningCandidateComponen
 	}
 
 
-	boolean fromStripesLibrary(final Class<? extends T> clazz)
+	boolean notFromStripesLibrary(final Class<? extends T> clazz)
 	{
-		return clazz.getPackage().getName().startsWith("net.sourceforge.stripes") &&
-				!clazz.getPackage().getName().startsWith("net.sourceforge.stripes.examples");
+		return !clazz.getPackage().getName().startsWith("net.sourceforge.stripes") ||
+				clazz.getPackage().getName().startsWith("net.sourceforge.stripes.examples");
 	}
 }

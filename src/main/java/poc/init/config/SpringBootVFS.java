@@ -17,8 +17,8 @@ import java.util.jar.JarInputStream;
 
 
 /**
- * VFS responsible of locating Stripes' classes inside a Spring Boot application. It's basically taken+adapted from the one at the
- * MyBatis project.
+ * VFS responsible of locating Stripes' classes inside a Spring Boot application.
+ * It's basically taken+adapted from the one at the MyBatis project.
  *
  * @author Juan Pablo Santos Rodríguez
  */
