@@ -15,16 +15,17 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.DispatcherType;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import static javax.servlet.DispatcherType.*;
 import static javax.servlet.DispatcherType.ERROR;
-import static javax.servlet.DispatcherType.FORWARD;
 import static javax.servlet.DispatcherType.INCLUDE;
 import static javax.servlet.DispatcherType.REQUEST;
 
@@ -34,21 +35,13 @@ import static javax.servlet.DispatcherType.REQUEST;
 @RequiredArgsConstructor
 public class StripesConfig
 {
-	private static final List<String> URL_PATTERNS = Arrays.asList("*.action", "*.jsp");
+	private static final List<String> URL_PATTERNS = Collections.singletonList("*.action");
 
 	private final StripesProperties properties;
 
 
-	@Bean("urlPatternsForStripesFilter")
-	public List<String> urlPatternsForStripesFilter()
-	{
-		return URL_PATTERNS;
-	}
-
-
-	@Bean(name = "stripesFilter")
-	public FilterRegistrationBean stripesFilter(
-			@Qualifier("urlPatternsForStripesFilter") final List<String> urlPatternsForStripesFilter)
+	@Bean
+	public FilterRegistrationBean stripesFilter()
 	{
 		final Map<String, String> params = new HashMap<>();
 		setActionResolverPackages(params, properties.getActionResolverPackages());
@@ -78,8 +71,7 @@ public class StripesConfig
 		putIfNotEmpty(params, "Stripes.DebugMode", properties.getDebugMode());
 		putIfNotEmpty(params, "Stripes.EncryptionKey", properties.getEncryptionKey());
 		putIfNotEmpty(params, "Stripes.HtmlMode", properties.getHtmlMode());
-		defaultIfEmpty(params, "VFS.Classes", properties.getVfsClasses(),
-				() -> poc.init.config.SpringBootVFS.class.getCanonicalName());
+		defaultIfEmpty(params, "VFS.Classes", properties.getVfsClasses(), SpringBootVFS.class::getCanonicalName);
 		for (final Map.Entry<String, String> customConf : properties.getCustomConf().entrySet())
 		{
 			putIfNotEmpty(params, customConf.getKey(), customConf.getValue());
@@ -88,29 +80,19 @@ public class StripesConfig
 		final FilterRegistrationBean registration = new FilterRegistrationBean();
 		registration.setFilter(new StripesFilter());
 		registration.setInitParameters(params);
-		registration.setUrlPatterns(urlPatternsForStripesFilter);
+		registration.setUrlPatterns(URL_PATTERNS);
 		registration.setDispatcherTypes(REQUEST);
 		registration.setOrder(Ordered.HIGHEST_PRECEDENCE + 2);
 		return registration;
 	}
 
 
-	@Bean("urlPatternsForStripesDynamicFilter")
-	public List<String> urlPatternsForStripesDynamicFilter()
-	{
-		final List<String> urlPatterns = new ArrayList<>();
-		urlPatterns.add("/*");
-		return urlPatterns;
-	}
-
-
-	@Bean(name = "stripesDynamicFilter")
-	public FilterRegistrationBean stripesDynamicFilter(
-			@Qualifier("urlPatternsForStripesDynamicFilter") final List<String> urlPatternsForStripesDynamicFilter)
+	@Bean
+	public FilterRegistrationBean stripesDynamicFilter()
 	{
 		final FilterRegistrationBean registration = new FilterRegistrationBean();
 		registration.setFilter(new DynamicMappingFilter());
-		registration.setUrlPatterns(urlPatternsForStripesDynamicFilter);
+		registration.setUrlPatterns(URL_PATTERNS);
 		registration.setDispatcherTypes(REQUEST, INCLUDE, FORWARD, ERROR);
 		registration.setOrder(Ordered.LOWEST_PRECEDENCE);
 		return registration;
