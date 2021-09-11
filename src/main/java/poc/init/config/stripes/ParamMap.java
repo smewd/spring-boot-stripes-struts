@@ -1,4 +1,4 @@
-package poc.init.config;
+package poc.init.config.stripes;
 
 
 import org.springframework.util.StringUtils;
@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 public class ParamMap<U, V> extends HashMap<U, V>
 {
-	void putIfNotEmpty(U key, V value)
+	public void putIfNotEmpty(U key, V value)
 	{
 		if (!StringUtils.isEmpty(value))
 		{

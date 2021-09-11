@@ -1,12 +1,9 @@
-package poc.init.config;
+package poc.init.config.stripes;
 
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 @ConfigurationProperties(prefix = StripesProperties.STRIPES_PREFIX)

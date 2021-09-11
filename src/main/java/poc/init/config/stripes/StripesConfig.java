@@ -1,4 +1,4 @@
-package poc.init.config;
+package poc.init.config.stripes;
 
 
 import lombok.RequiredArgsConstructor;

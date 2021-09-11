@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Import;
 import poc.init.config.DispatcherServletConfig;
-import poc.init.config.StripesConfig;
+import poc.init.config.stripes.StripesConfig;
 
 
 @SpringBootApplication

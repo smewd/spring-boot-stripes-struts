@@ -1,4 +1,4 @@
-package poc.init.config;
+package poc.init.config.stripes;
 
 
 import net.sourceforge.stripes.action.ActionBean;
@@ -33,7 +33,7 @@ public class StripesClassesScanner<T> extends ClassPathScanningCandidateComponen
 	}
 
 
-	static String scanForActionBeans() {
+	public static String scanForActionBeans() {
 		final StripesClassesScanner<ActionBean> scanner = new StripesClassesScanner<>();
 		scanner.addIncludeFilter(new AssignableTypeFilter(ActionBean.class));
 		final Collection<Class<? extends ActionBean>> actionbeans = scanner.findComponentClasses("");
