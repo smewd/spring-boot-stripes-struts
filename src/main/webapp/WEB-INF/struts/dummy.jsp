@@ -1,25 +1,27 @@
-<%@ page language="java" %>
-
-Hejsan!
-<%--
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Arrays" %>
+
+<%--
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
+--%>
 
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>This is a simple jsp page.</title>
+    <title>Dummy jsp page.</title>
 </head>
 <body>
     src/main/webapp/WEB-INF/struts/dummy.jsp<br/><br/><br/>
 
+<%--
     Struts Bean value = <bean:write name="dummyForm" property="value"/> </br>
     System currentMillis = <%= System.currentTimeMillis()  %> </br>
+--%>
 
+    <%= LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) %><br/>
     <%
         response.getWriter().flush();
         Map<String, String[]> map = request.getParameterMap();
@@ -29,4 +31,3 @@ Hejsan!
     %>
 </body>
 </html>
---%>

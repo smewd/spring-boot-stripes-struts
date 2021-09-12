@@ -76,10 +76,43 @@
             <artifactId>struts-el</artifactId>
             <version>${struts.version}</version>
         </dependency>
+        <dependency>
+            <groupId>struts</groupId>
+            <artifactId>struts-legacy</artifactId>
+            <version>${struts.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>struts</groupId>
+            <artifactId>struts-bean</artifactId>
+            <version>${struts.version}</version>
+            <type>tld</type>
+        </dependency>
+        <dependency>
+            <groupId>struts</groupId>
+            <artifactId>struts-logic</artifactId>
+            <version>${struts.version}</version>
+            <type>tld</type>
+        </dependency>
+
 <!--        <dependency>-->
-<!--            <groupId>struts</groupId>-->
-<!--            <artifactId>struts-taglib</artifactId>-->
-<!--            <version>${struts.version}</version>-->
+<!--            <groupId>taglibs</groupId>-->
+<!--            <artifactId>standard</artifactId>-->
+<!--            <scope>runtime</scope>-->
+<!--            <version>1.1.1</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>taglibs</groupId>-->
+<!--            <artifactId>c</artifactId>-->
+<!--            <version>1.1.1</version>-->
+<!--            <scope>runtime</scope>-->
+<!--            <type>tld</type>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>taglibs</groupId>-->
+<!--            <artifactId>fmt</artifactId>-->
+<!--            <version>1.1.1</version>-->
+<!--            <scope>runtime</scope>-->
+<!--            <type>tld</type>-->
 <!--        </dependency>-->
 
         <dependency>

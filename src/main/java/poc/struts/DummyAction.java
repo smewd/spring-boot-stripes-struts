@@ -8,6 +8,8 @@ import org.apache.struts.action.ActionMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class DummyAction extends Action
@@ -17,7 +19,7 @@ public class DummyAction extends Action
 	{
 		request.getSession().invalidate();
 		DummyForm f = (DummyForm)form;
-		f.setValue("This is from struts");
+		f.setValue(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
 		return mapping.findForward("dummy");
 	}
