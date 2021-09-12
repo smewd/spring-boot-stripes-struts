@@ -4,10 +4,8 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.Arrays" %>
 
-<%--
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
---%>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
 
 <html>
 <head>
@@ -16,10 +14,8 @@
 <body>
     src/main/webapp/WEB-INF/struts/dummy.jsp<br/><br/><br/>
 
-<%--
     Struts Bean value = <bean:write name="dummyForm" property="value"/> </br>
     System currentMillis = <%= System.currentTimeMillis()  %> </br>
---%>
 
     <%= LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) %><br/>
     <%
