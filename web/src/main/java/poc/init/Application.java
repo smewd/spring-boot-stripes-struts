@@ -7,12 +7,14 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import poc.config.DispatcherServletConfig;
+import poc.config.FilterConfig;
 import poc.config.ServletConfig;
 
 
 @SpringBootApplication
 @Import({
         DispatcherServletConfig.class,
+        FilterConfig.class,
         ServletConfig.class,
 })
 @ImportResource({
