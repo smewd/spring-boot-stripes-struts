@@ -9,7 +9,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import poc.stripes.servlet.BootStripesDispatcher;
 
 import javax.servlet.DispatcherType;
 import java.util.Collections;
@@ -28,14 +27,17 @@ public class StripesConfig
     private static final String INTERCEPTOR_CLASSES = SpringInterceptor.class.getCanonicalName();
     private static final String LOCALES = "en,sv";
 
+    private static final String STRIPES_DISPATCHERSERVLET_NAME = "stripesDispatcherServlet";
+
 
     @Bean
-    public ServletRegistrationBean stripesDispatcher() {
+    public ServletRegistrationBean stripesDispatcher()
+    {
         final DispatcherServlet dispatcherServlet = new DispatcherServlet();
 
         ServletRegistrationBean registration = new ServletRegistrationBean();
         registration.setServlet(dispatcherServlet);
-        registration.setName(BootStripesDispatcher.SERVLET_NAME);
+        registration.setName(STRIPES_DISPATCHERSERVLET_NAME);
         registration.setLoadOnStartup(1);
         registration.setUrlMappings(URL_MAPPINGS);
         return registration;
@@ -43,7 +45,8 @@ public class StripesConfig
 
 
     @Bean
-    public FilterRegistrationBean stripesFilter() {
+    public FilterRegistrationBean stripesFilter()
+    {
         final Map<String, String> params = new HashMap<>();
         params.put("ActionResolver.Packages", getPackageName(ACTIONRESOLVER_PACKAGEMARKER));
         params.put("Interceptor.Classes", INTERCEPTOR_CLASSES);
@@ -51,7 +54,7 @@ public class StripesConfig
 
         final FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new StripesFilter());
-        registration.setServletNames(Collections.singletonList(BootStripesDispatcher.SERVLET_NAME));
+        registration.setServletNames(Collections.singletonList(STRIPES_DISPATCHERSERVLET_NAME));
         registration.setInitParameters(params);
         registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.FORWARD);
         registration.setUrlPatterns(URL_MAPPINGS);
@@ -60,7 +63,8 @@ public class StripesConfig
     }
 
 
-    private String getPackageName(Class<?> cls) {
+    private String getPackageName(Class<?> cls)
+    {
         return cls.getPackage().getName();
     }
 }
