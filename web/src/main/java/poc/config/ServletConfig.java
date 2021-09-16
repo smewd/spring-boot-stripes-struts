@@ -3,12 +3,13 @@ package poc.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import poc.config.struts.StrutsConfig;
 
 
 @Configuration
 @Import({
 //        StripesConfig.class,
-//        StrutsConfig.class,
+        StrutsConfig.class,
 })
 public class ServletConfig
 {
