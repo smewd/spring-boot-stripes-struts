@@ -13,7 +13,7 @@ import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 
-@UrlBinding("/stripes/dummy.action")
+@UrlBinding("/dummy.action")
 public class DummyActionBean implements ActionBean
 {
 	@SpringBean("dummyService")
