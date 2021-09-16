@@ -1,4 +1,4 @@
-package poc.init.config.struts;
+package poc.config.struts;
 
 
 import org.springframework.boot.web.servlet.ServletComponentScan;

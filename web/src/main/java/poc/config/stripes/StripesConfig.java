@@ -1,4 +1,4 @@
-package poc.init.config.stripes;
+package poc.config.stripes;
 
 
 import net.sourceforge.stripes.controller.DispatcherServlet;
