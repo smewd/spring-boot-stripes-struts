@@ -1,13 +1,21 @@
 package poc.config;
 
 
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import poc.filter.AuthorizationFilter;
 
 
 @Configuration
-@ComponentScan(basePackageClasses = {
+@ServletComponentScan(basePackageClasses = {
         poc.filter.PackageMarker.class
 })
-public class FilterConfig {
+public class FilterConfig
+{
+    @Bean
+    public AuthorizationFilter authorizationFilter()
+    {
+        return new AuthorizationFilter();
+    }
 }
