@@ -5,7 +5,11 @@ import lombok.Setter;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionServlet;
 import org.apache.struts.actions.DispatchAction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 import poc.beans.DummyService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +18,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
+@Component("/dummy")
 public class DummyAction extends DispatchAction
 {
-	@Setter
+	@Autowired
 	private DummyService dummyService;
 
 
@@ -29,5 +34,12 @@ public class DummyAction extends DispatchAction
 		f.setValue(dummyService.sayHello("Struts: " + LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
 
 		return mapping.findForward("dummy");
+	}
+
+	@Override
+	public void setServlet(ActionServlet servlet)
+	{
+		super.setServlet(servlet);
+		System.out.println("\n\n\n\nDummyAction.setServlet\n\n\n\n");
 	}
 }
