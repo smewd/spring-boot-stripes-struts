@@ -14,8 +14,8 @@
 <body>
     src/main/webapp/WEB-INF/struts/dummy.jsp<br/><br/><br/>
 
-    Struts Bean value = <bean:write name="dummyForm" property="value"/> </br>
-    System currentMillis = <%= System.currentTimeMillis()  %> </br>
+    Struts Bean value = <bean:write name="dummyForm" property="value"/><br/>
+    System currentMillis = <%= System.currentTimeMillis()  %><br/>
 
     <%= LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) %><br/>
     <%
