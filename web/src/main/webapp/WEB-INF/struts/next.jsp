@@ -6,14 +6,13 @@
 
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
-<%@ taglib prefix="html" uri="http://jakarta.apache.org/struts/tags-html" %>
 
 <html>
 <head>
-    <title>Dummy jsp page.</title>
+    <title>Next Dummy jsp page.</title>
 </head>
 <body>
-    src/main/webapp/WEB-INF/struts/dummy.jsp<br/><br/><br/>
+    src/main/webapp/WEB-INF/struts/next.jsp<br/><br/><br/>
 
     Struts Bean value = <bean:write name="dummyForm" property="value"/><br/>
     System currentMillis = <%= System.currentTimeMillis()  %><br/>
@@ -26,9 +25,5 @@
             out.println(key + " - " + Arrays.toString(map.get(key)));
         }
     %>
-
-    <html:form action="/dummy.do">
-        <html:submit property="action">button_next</html:submit>
-    </html:form>
 </body>
 </html>

@@ -16,8 +16,10 @@
     <action-mappings>
         <action path="/dummy" name="dummyForm"
                 type="org.springframework.web.struts.DelegatingActionProxy"
+                parameter="action"
                 scope="request">
             <forward name="dummy" path="/WEB-INF/struts/dummy.jsp"/>
+            <forward name="next" path="/WEB-INF/struts/next.jsp"/>
         </action>
     </action-mappings>
 
