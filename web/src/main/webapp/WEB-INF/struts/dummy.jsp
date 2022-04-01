@@ -27,7 +27,7 @@
         }
     %>
 
-    <html:form action="/dummy.do">
+    <html:form action="/dummy">
         <html:submit property="action">button_next</html:submit>
     </html:form>
 </body>
